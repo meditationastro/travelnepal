@@ -62,13 +62,8 @@ export default function GalleryPage() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const fetchImages = useCallback(async () => {
-    // In production (especially on Netlify), the DB-backed /api/gallery route can be slow or unavailable.
-    // We always want the gallery to become usable quickly, so we:
-    // 1) render curated seed photos immediately, then
-    // 2) attempt the API request with a short timeout.
     setLoading(true);
     try {
-      // Seed curated photos first (instant UI)
       setImages(GALLERY_PHOTOS.map((p: typeof GALLERY_PHOTOS[0], i: number) => ({ id: `seed-${i}`, ...p, createdAt: new Date().toISOString() })));
 
       const controller = new AbortController();
@@ -127,7 +122,14 @@ export default function GalleryPage() {
           const res = await fetch('/api/gallery', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ src, emoji: '🖼️', title: file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' '), category: 'General', caption: '' }) });
           const created = await res.json();
           setImages((prev: GalleryImage[]) => [created, ...prev]);
-          setAnimatingIds(prev => new Set([...prev, created.id]));
+
+          // FIX: avoid iterating Set with spread (TS2802)
+          setAnimatingIds(prev => {
+            const next = new Set(prev);
+            next.add(created.id);
+            return next;
+          });
+
           setTimeout(() => setAnimatingIds(prev => { const n = new Set(prev); n.delete(created.id); return n; }), 800);
         } finally { done++; if (done === files.length) setUploading(false); }
       };
@@ -142,7 +144,14 @@ export default function GalleryPage() {
       const res = await fetch('/api/gallery', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...newItem, src: null }) });
       const created = await res.json();
       setImages((prev: GalleryImage[]) => [created, ...prev]);
-      setAnimatingIds(prev => new Set([...prev, created.id]));
+
+      // FIX: avoid iterating Set with spread (TS2802)
+      setAnimatingIds(prev => {
+        const next = new Set(prev);
+        next.add(created.id);
+        return next;
+      });
+
       setTimeout(() => setAnimatingIds(prev => { const n = new Set(prev); n.delete(created.id); return n; }), 800);
       setShowAddModal(false);
       setNewItem({ title: '', caption: '', category: 'Meditation', emoji: '🏔️' });
@@ -181,7 +190,6 @@ export default function GalleryPage() {
 
   return (
     <div className="min-h-screen" style={{ background: '#fdf8f0' }}>
-
       {/* SEO Hero */}
       <section className="pt-20">
         <div className="py-24 text-center px-4 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1c1917 0%, #2d1500 50%, #1a1a0a 100%)' }}>
