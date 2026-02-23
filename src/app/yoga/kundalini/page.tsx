@@ -1,0 +1,53 @@
+import Link from 'next/link';
+import type { Metadata } from 'next';
+import { CheckCircle } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Kundalini Yoga Nepal | Energy Awakening Classes | Himalaya Retreat Nepal',
+  description: 'Kundalini yoga classes in Nepal — kriyas, breathwork, mantra, and meditation to awaken your life-force energy. Expert teachers at Khumaltar, Lalitpur.',
+};
+
+export default function KundaliniYogaPage() {
+  return (
+    <div className="min-h-screen pt-20" style={{ background: '#fdf8f0' }}>
+      <div className="py-20 text-center px-4" style={{ background: 'linear-gradient(135deg, #1a0a2e, #0f1f0f)' }}>
+        <div className="text-5xl mb-5">🌊</div>
+        <h1 className="font-display text-5xl text-white font-semibold mb-4">Kundalini Yoga Nepal</h1>
+        <p className="text-stone-400 text-xl max-w-2xl mx-auto">Awaken the dormant energy within — kriyas, breathwork, mantra, and deep meditation</p>
+      </div>
+      <div className="max-w-4xl mx-auto px-4 py-16 space-y-8">
+        <div className="bg-white rounded-3xl p-8 shadow-sm border border-stone-100">
+          <h2 className="font-display text-3xl font-semibold text-stone-900 mb-4">Kundalini Yoga in the Himalayas</h2>
+          <p className="text-stone-600 leading-relaxed text-lg mb-6">
+            Kundalini yoga is the yoga of awareness — a powerful system of kriyas (action sequences), pranayama, mantra, and meditation designed to awaken the latent life-force energy (kundalini shakti) that resides at the base of the spine. Practiced in the Himalayan environment, its effects are profoundly amplified.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
+            {[{ label: 'Duration', value: '90 minutes' }, { label: 'Price', value: '$35 per class' }, { label: 'Level', value: 'Intermediate' }].map(d => (
+              <div key={d.label} className="bg-stone-50 rounded-2xl p-4 text-center">
+                <div className="text-xs text-stone-400 mb-1">{d.label}</div>
+                <div className="font-display font-semibold text-stone-900">{d.value}</div>
+              </div>
+            ))}
+          </div>
+          <div className="space-y-2 mb-8">
+            {['Kundalini kriyas (action sequences)', 'Breath of fire & alternate nostril breathing', 'Mantra meditation (Sat Nam, Ra Ma Da Sa)', 'Gong relaxation close', 'Energy awareness techniques'].map(item => (
+              <div key={item} className="flex items-center gap-2 text-stone-600">
+                <CheckCircle className="w-4 h-4 flex-shrink-0" style={{ color: '#4a7e50' }} />
+                {item}
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-3 flex-col sm:flex-row">
+            <a href="https://wa.me/9779851187267?text=Namaste! I want to book a Kundalini yoga class." target="_blank" rel="noreferrer"
+              className="px-8 py-3 rounded-full font-semibold text-stone-900 text-center" style={{ background: 'linear-gradient(135deg, #C5A253, #E8C870)' }}>
+              Book a Class
+            </a>
+            <Link href="/yoga" className="px-8 py-3 rounded-full font-semibold border-2 text-stone-700 hover:bg-stone-50 text-center" style={{ borderColor: '#4a7e50' }}>
+              All Yoga Classes
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

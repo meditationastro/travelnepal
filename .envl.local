@@ -1,0 +1,26 @@
+# Database (PostgreSQL - use Neon, Supabase, or Railway)
+DATABASE_URL="postgresql://neondb_owner:npg_RnhP5fBKlZ3Q@ep-long-credit-aiqvue0c-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+
+# NextAuth
+NEXTAUTH_SECRET="your-super-secret-key-change-in-production"
+NEXTAUTH_URL="http://localhost:3000"
+
+# Stripe
+STRIPE_SECRET_KEY="sk_test_..."
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_..."
+STRIPE_WEBHOOK_SECRET="whsec_..."
+
+# Email (Nodemailer)
+EMAIL_SERVER_HOST="smtp.gmail.com"
+EMAIL_SERVER_PORT="587"
+EMAIL_SERVER_USER="your@gmail.com"
+EMAIL_SERVER_PASSWORD="your-app-password"
+EMAIL_FROM="Himalaya Retreat <your@gmail.com>"
+
+# Cloudinary (optional for image uploads)
+CLOUDINARY_CLOUD_NAME=""
+CLOUDINARY_API_KEY=""
+CLOUDINARY_API_SECRET=""
+
+# App URL
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
