@@ -1,9 +1,9 @@
 [build]
-  command = "npm run build"
+  command = "npx prisma generate && npx prisma db push && node prisma/seed.js && next build"
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "22"
+  NODE_VERSION = "20"
   NEXT_TELEMETRY_DISABLED = "1"
   PRISMA_GENERATE_SKIP_AUTOINSTALL = "true"
 
