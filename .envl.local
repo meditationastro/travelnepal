@@ -1,5 +1,5 @@
 # Database (PostgreSQL - use Neon, Supabase, or Railway)
-DATABASE_URL="postgresql://neondb_owner:npg_RnhP5fBKlZ3Q@ep-long-credit-aiqvue0c-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+#DATABASE_URL="postgresql://neondb_owner:npg_RnhP5fBKlZ3Q@ep-long-credit-aiqvue0c-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 
 # NextAuth
 NEXTAUTH_SECRET="your-super-secret-key-change-in-production"
