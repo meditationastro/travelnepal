@@ -1,6 +1,6 @@
 [build]
-  command = "npx prisma generate && npx prisma db push && next build"
-  publish = ".next"
+  command = "npx prisma generate && npx prisma db push "
+  
 
 [build.environment]
   NODE_VERSION = "20"
