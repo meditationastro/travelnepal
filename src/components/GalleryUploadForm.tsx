@@ -1,55 +1,44 @@
-
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-type Props = {
-  onUploaded?: () => void;
-};
-
-export default function GalleryUploadForm({ onUploaded }: Props) {
-  const [saving, setSaving] = React.useState(false);
+/**
+ * Build-safe gallery uploader placeholder.
+ * Uses Netlify Forms so you can receive submissions without backend.
+ */
+export default function GalleryUploadForm() {
+  const [title, setTitle] = useState('');
 
   return (
-    <Card className="rounded-3xl border-stone-200/20 bg-white/5">
-      <CardHeader>
-        <CardTitle className="text-lg">Add Gallery Image</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form
-          className="grid gap-4"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            setSaving(true);
-            await new Promise((r) => setTimeout(r, 600));
-            setSaving(false);
-            onUploaded?.();
-            (e.currentTarget as HTMLFormElement).reset();
-          }}
-        >
-          <div className="grid gap-2">
-            <Label htmlFor="galleryTitle">Title</Label>
-            <Input id="galleryTitle" name="galleryTitle" placeholder="Sunrise in Pokhara" required />
-          </div>
+    <div className="bg-white rounded-2xl border border-stone-100 p-6 space-y-4">
+      <div>
+        <h3 className="font-semibold text-stone-900">Add Gallery Image</h3>
+        <p className="text-sm text-stone-500">Submit an image URL + title (placeholder). Replace with DB later.</p>
+      </div>
 
-          <div className="grid gap-2">
-            <Label htmlFor="gallerySrc">Image URL</Label>
-            <Input id="gallerySrc" name="gallerySrc" placeholder="https://..." required />
-          </div>
+      <form name="gallery-upload" method="POST" data-netlify="true" className="space-y-4">
+        <input type="hidden" name="form-name" value="gallery-upload" />
 
-          <Button type="submit" disabled={saving}>
-            {saving ? 'Uploading...' : 'Add image'}
-          </Button>
+        <div className="space-y-2">
+          <Label htmlFor="gallery-title">Title</Label>
+          <Input id="gallery-title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Example: Sunrise over Annapurna" />
+        </div>
 
-          <p className="text-xs text-white/60">
-            Placeholder uploader (build-safe). Replace with real upload storage anytime.
-          </p>
-        </form>
-      </CardContent>
-    </Card>
+        <div className="space-y-2">
+          <Label htmlFor="gallery-src">Image URL</Label>
+          <Input id="gallery-src" name="src" placeholder="https://..." />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="gallery-tags">Tags (optional)</Label>
+          <Input id="gallery-tags" name="tags" placeholder="trekking, nepal, retreat" />
+        </div>
+
+        <Button type="submit">Submit</Button>
+      </form>
+    </div>
   );
 }

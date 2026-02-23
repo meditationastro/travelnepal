@@ -1,61 +1,49 @@
-
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-type Props = {
-  onUploaded?: () => void;
-};
-
-export default function ProductUploadForm({ onUploaded }: Props) {
-  const [saving, setSaving] = React.useState(false);
+/**
+ * Lightweight placeholder to satisfy builds.
+ * Replace with real product upload integration (S3/Cloudinary/DB) when ready.
+ */
+export default function ProductUploadForm() {
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
 
   return (
-    <Card className="rounded-3xl border-stone-200/20 bg-white/5">
-      <CardHeader>
-        <CardTitle className="text-lg">Add Product</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form
-          className="grid gap-4"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            setSaving(true);
-            // Placeholder: integrate your DB/API later.
-            await new Promise((r) => setTimeout(r, 600));
-            setSaving(false);
-            onUploaded?.();
-            (e.currentTarget as HTMLFormElement).reset();
-          }}
-        >
-          <div className="grid gap-2">
-            <Label htmlFor="productName">Product name</Label>
-            <Input id="productName" name="productName" placeholder="Herbal tea, Mala, Incense..." required />
+    <div className="bg-white rounded-2xl border border-stone-100 p-6 space-y-4">
+      <div>
+        <h3 className="font-semibold text-stone-900">Add Product</h3>
+        <p className="text-sm text-stone-500">Quick placeholder form (build-safe). Submits to Netlify Forms.</p>
+      </div>
+
+      <form name="product-upload" method="POST" data-netlify="true" className="space-y-4">
+        <input type="hidden" name="form-name" value="product-upload" />
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="product-name">Product name</Label>
+            <Input id="product-name" name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Example: Herbal Tea" />
           </div>
-
-          <div className="grid gap-2">
-            <Label htmlFor="productPrice">Price (NPR)</Label>
-            <Input id="productPrice" name="productPrice" type="number" min={0} step="1" placeholder="1200" required />
+          <div className="space-y-2">
+            <Label htmlFor="product-price">Price</Label>
+            <Input id="product-price" name="price" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Example: 19" />
           </div>
+        </div>
 
-          <div className="grid gap-2">
-            <Label htmlFor="productImage">Image URL</Label>
-            <Input id="productImage" name="productImage" placeholder="https://..." />
-          </div>
+        <div className="space-y-2">
+          <Label htmlFor="product-image">Image URL (optional)</Label>
+          <Input id="product-image" name="image" placeholder="https://..." />
+        </div>
 
-          <Button type="submit" disabled={saving}>
-            {saving ? 'Saving...' : 'Save product'}
-          </Button>
-
-          <p className="text-xs text-white/60">
-            Note: This is a build-safe placeholder. Connect it to your DB/API whenever you’re ready.
-          </p>
-        </form>
-      </CardContent>
-    </Card>
+        <div className="flex items-center gap-3">
+          <Button type="submit">Save</Button>
+          <span className="text-xs text-stone-400">(You can upgrade to real admin uploads later.)</span>
+        </div>
+      </form>
+    </div>
   );
 }

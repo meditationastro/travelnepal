@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { BookOpen, Flame, Lotus, Mail, ArrowRight } from 'lucide-react';
+import { BookOpen, Flame, Flower2, Mail, ArrowRight } from 'lucide-react';
 
 type Track = 'patanjali' | 'ashtanga' | 'ashtavakra';
 
@@ -33,7 +33,7 @@ const tracks: Record<Track, {
   ashtavakra: {
     title: 'Ashtavakra Gita',
     emoji: '🪷',
-    icon: Lotus,
+    icon: Flower2,
     blurb: 'Non-dual wisdom: freedom is not achieved—it is recognized. Direct insight into Self and liberation.',
     bullets: ['Witness consciousness and dis-identification', 'Freedom from mental stories', 'Living as awareness in daily life', 'Meditation as recognition, not effort'],
     color: '#7c2d12',
