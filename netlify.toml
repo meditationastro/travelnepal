@@ -1,6 +1,4 @@
-[build]
-  command = "npx prisma generate && npx prisma db push "
-  publish = ".next"
+
 
 [build.environment]
   NODE_VERSION = "22"
